@@ -1,0 +1,48 @@
+1.
+List Project
+-------------------------------------------
+gcloud projects list
+
+2.
+Set Project
+-------------------------------------------
+gcloud config set project sixth-window-233817
+
+
+3.
+Create Image  (Nested VM)
+-------------------------------------------
+  3.a gcloud compute instances create temp-image-base --image-project debian-cloud --image-family debian-9 --zone=us-central1-b
+  3.b gcloud compute instances create temp-image-base --image-family=projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts --zone=us-central1-b
+
+gcloud compute instances stop temp-image-base --zone=us-central1-b
+
+gcloud compute images create nested-vm-image \
+  --source-disk=temp-image-base --source-disk-zone=us-central1-b \
+  --licenses="https://www.googleapis.com/compute/v1/projects/vm-options/global/licenses/enable-vmx"
+  
+gcloud compute instances create nested-vm --zone us-central1-b --image=nested-vm-image --machine-type=n1-standard-32 --boot-disk-size=250GB
+gcloud compute instances create nested-vm --zone us-central1-b --image=nested-vm-image --machine-type=n1-standard-8 --boot-disk-size=40GB
+
+
+4.
+SSH to Nested VM
+----------------------------------------------
+gcloud compute ssh nested-vm --zone=us-central1-b
+
+
+5. 
+SSH Hacks
+----------------------------------------------
+Go to your google cloud console -> compute engine -> Metadata -> "SSH keys" tab and click on edit. Here you can delete the ssh keys.
+
+https://stackoverflow.com/questions/26193535/error-gcloud-compute-ssh-usr-bin-ssh-exited-with-return-code-255#:~:text=If%20you%20have%20installed%20gcloud%20without%20sudo%2C%20you%20can%20omit%20sudo%20.&text=255%20is%20the%20interactive%20ssh,executed%20in%20the%20ssh%20session.&text=Go%20to%20your%20google%20cloud,tab%20and%20click%20on%20edit.
+
+
+6.
+Delete the VMS
+-------------------------------------------------
+gcloud compute instances delete nested-vm
+gcloud compute instances delete temp-image-base
+gcloud compute images delete  nested-vm-image
+

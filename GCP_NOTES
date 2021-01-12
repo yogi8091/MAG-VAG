@@ -46,3 +46,9 @@ gcloud compute instances delete nested-vm
 gcloud compute instances delete temp-image-base
 gcloud compute images delete  nested-vm-image
 
+7. 
+Installing GCP Desktop
+------------------------------------------------
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-on-debian-9
+https://medium.com/google-cloud/linux-gui-on-the-google-cloud-platform-800719ab27c5 (sudo apt-get install xfce4 xfce4-goodies)
+

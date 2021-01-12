@@ -1,0 +1,7 @@
+echo "== Installing Python3-pip =="
+
+apt-get -y upgrade
+
+apt install -y python3-pip
+
+echo " ** Installed python3-pip **"

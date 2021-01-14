@@ -1,1 +1,24 @@
+Scratch  1 :
+----------------------------------------
+If the ssh keys in /etc/ssh keys are corrupted following mechanism can be used to re-create it. SSH Logs are stored in /var/log/auth.log
+Solution 1:
 https://www.cyberciti.biz/faq/howto-regenerate-openssh-host-keys/
+
+Scratch 2 :
+------------------------------------------
+Virtual Box Start/Stop Script :
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+   echo " Pass parameter : start/stop "
+   exit
+fi
+
+if [ $1 == 'start' ]; then
+  VBoxManage startvm DEBAIN-BAREMETAL --type  headless
+  sleep 3
+  ping 192.168.205.13 -c 5
+else
+  VBoxManage controlvm DEBAIN-BAREMETAL poweroff
+fi
+
